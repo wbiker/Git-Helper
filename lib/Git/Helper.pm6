@@ -27,3 +27,27 @@ Copyright 2017 wolfgangbanaston
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 
 =end pod
+
+method get-youngest-release-branch(@branches) {
+    if @branches.elems == 0 {
+        die "Could not find any release branches.";
+    }
+
+    my $most-recent-release-branch;
+    my $release-year = 0;
+    my $release-week = 0;
+    for @branches -> $branch-name {
+        if $branch-name ~~ /('release/' (\d **4) '.' (\d **2))/ {
+            my $year = +$0[0];
+            my $week = +$0[1];
+
+            if $year > $release-year || $week > $release-week {
+                $release-year = $year;
+                $release-week = $week;
+                $most-recent-release-branch = ~$0;
+            }
+        }
+    }
+
+    return $most-recent-release-branch;
+}
