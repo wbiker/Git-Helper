@@ -41,7 +41,7 @@ method get-youngest-release-branch(@branches) {
             my $year = +$0[0];
             my $week = +$0[1];
 
-            if $year > $release-year || $week > $release-week {
+            if $year > $release-year || ($year == $release-year && $week > $release-week) {
                 $release-year = $year;
                 $release-week = $week;
                 $most-recent-release-branch = ~$0;

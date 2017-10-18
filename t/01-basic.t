@@ -2,6 +2,8 @@ use v6.c;
 use Test;
 use Git::Helper;
 
+use-ok 'Git::Helper', "Use works";
+
 my @test-branch-names = <
 bugfix/CDP-4281
 bugfix/CDP-5665-tamperprotection-fix-for-release41
@@ -28,6 +30,7 @@ remotes/origin/release/2016.52
 remotes/origin/release/2017.08
 remotes/origin/release/2017.11
 remotes/origin/release/2017.17
+
 remotes/origin/release/2017.20
 remotes/origin/release/2017.23
 remotes/origin/release/2017.26
@@ -40,6 +43,9 @@ remotes/origin/release/2017.41
 remotes/origin/release/2016.49
 >;
 
-.say for @test-branch-names;
+my $gh = Git::Helper.new;
+is $gh.get-youngest-release-branch(@test-branch-names), "release/2017.41", "Latest release found";
+
+dies-ok {$gh.get-youngest-release-branch()}, "No parameter throws exception";
 
 done-testing;
