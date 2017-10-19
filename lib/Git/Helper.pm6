@@ -48,6 +48,7 @@ method get-youngest-release-branch(@branches) {
             }
         }
     }
-
+    die "Most recent release branch not found." unless $most-recent-release-branch;
+    
     return $most-recent-release-branch;
 }

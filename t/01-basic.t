@@ -47,5 +47,6 @@ my $gh = Git::Helper.new;
 is $gh.get-youngest-release-branch(@test-branch-names), "release/2017.41", "Latest release found";
 
 dies-ok {$gh.get-youngest-release-branch()}, "No parameter throws exception";
+dies-ok {$gh.get-youngest-release-branch(['',''])}, "No youngest build found exception";
 
 done-testing;
